@@ -12,6 +12,8 @@ import {useLocation} from 'react-router-dom'
 
 // Components
 import {
+    Alert,
+    AlertIcon,
     Box,
     Button,
     SimpleGrid,
@@ -44,6 +46,28 @@ import {
     HOME_SHOP_PRODUCTS_LIMIT
 } from '../../constants'
 
+/*
+ *const MyHeader = ({name}) => {
+ *    return <h1>Hello, {name}!</h1>
+ *}
+ */
+class MyHeader extends React.Component {
+    static propTypes = {
+        name: PropTypes.string.isRequired
+    }
+    render() {
+        return (
+            <Box>
+                <h1>Hello, {this.props.name}!</h1>
+                <Alert padding="5" status="success">
+                    <AlertIcon />
+                    Chakra UI components unlocked!
+                </Alert>
+            </Box>
+        )
+    }
+}
+
 /**
  * This is the home page for Retail React App.
  * The page is created for demonstration purposes.
@@ -67,7 +91,8 @@ const Home = ({productSearchResult, isLoading}) => {
                 description="Commerce Cloud Retail React App"
                 keywords="Commerce Cloud, Retail React App, React Storefront"
             />
-
+            <h1>Hello there PWA developer :-)</h1>
+            <MyHeader name="Razvan" />
             <Hero
                 title={intl.formatMessage({
                     defaultMessage: 'The React PWA Starter Store for Retail',
