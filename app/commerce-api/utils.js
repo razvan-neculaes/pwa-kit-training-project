@@ -199,7 +199,7 @@ export const createOcapiFetch = (commerceAPIConfig) => async (
     }
 
     let response
-    response = await fetch(`${host}/s/${siteId}/dw/shop/v21_3/${endpoint}`, {
+    response = await fetch(`${host}/s/${siteId}/dw/shop/v22_10/${endpoint}`, {
         method: method,
         headers: headers,
         ...(body && {
