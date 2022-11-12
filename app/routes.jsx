@@ -38,6 +38,7 @@ const ProductList = loadable(() => import('./pages/product-list'), {fallback})
 const Wishlist = loadable(() => import('./pages/account/wishlist'), {fallback})
 const ContentSearch = loadable(() => import('./pages/content-search'), {fallback})
 const ContentDetails = loadable(() => import('./pages/content-details'), {fallback})
+const SomeTests = loadable(() => import('./pages/some-tests'), {fallback})
 const PageNotFound = loadable(() => import('./pages/page-not-found'))
 
 const routes = [
@@ -112,6 +113,10 @@ const routes = [
     {
         path: '/content/:id',
         component: ContentDetails
+    },
+    {
+        path: '/test',
+        component: SomeTests
     },
     {
         path: '*',
