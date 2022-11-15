@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 
-import {Text} from '@chakra-ui/react'
-
 const SomeTests = () => {
     const [count, setCount] = useState(0)
     const [randomArray, setRandomArray] = useState([])
@@ -50,7 +48,7 @@ const SomeTests = () => {
 
             <div>
                 <p>You clicked {count} times</p>
-                <button onClick={() => setCount(count + 1)}>Click me</button>
+                <button onClick={() => setCount((prevCount) => prevCount + 1)}>Click me</button>
             </div>
         </div>
     )
