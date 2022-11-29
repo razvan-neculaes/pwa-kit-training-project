@@ -345,6 +345,8 @@ ProductDetail.getProps = async ({res, params, location, api}) => {
         throw new HTTPNotFound(category.detail)
     }
 
+    // console.log('ProductDetail => product', product)
+
     return {category, product}
 }
 

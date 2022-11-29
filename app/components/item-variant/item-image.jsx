@@ -21,6 +21,7 @@ import {findImageGroupBy} from '../../utils/image-groups-utils'
  */
 const ItemImage = ({imageProps, ratio = 1, ...props}) => {
     const variant = useItemVariant()
+    // console.log('ItemImage =>', variant)
 
     // We find the 'small' images in the variant's image groups based on variationValues and pick the first one
     const image = findImageGroupBy(variant?.imageGroups, {
