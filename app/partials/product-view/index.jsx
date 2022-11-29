@@ -198,6 +198,8 @@ const ProductView = ({
         }
     }, [variant?.productId])
 
+    // console.log('ProductView => product =>', product)
+
     return (
         <Flex direction={'column'} data-testid="product-view">
             {/* Basic information etc. title, price, breadcrumb*/}
@@ -217,6 +219,7 @@ const ProductView = ({
                                 size={imageSize}
                                 imageGroups={product.imageGroups}
                                 selectedVariationAttributes={variationParams}
+                                isSale={product?.c_isSale}
                             />
                             <HideOnMobile>
                                 {showFullLink && product && (
