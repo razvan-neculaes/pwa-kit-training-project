@@ -51,7 +51,13 @@ import PageHeader from './partials/page-header'
 import {FilterIcon, ChevronDownIcon} from '../../components/icons'
 
 // Hooks
-import {useLimitUrls, usePageUrls, useSortUrls, useSearchParams} from '../../hooks'
+import {
+    useLimitUrls,
+    usePageUrls,
+    useSortUrls,
+    useSearchParams,
+    useProductSearchResults
+} from '../../hooks'
 import {useToast} from '../../hooks/use-toast'
 import useWishlist from '../../hooks/use-wishlist'
 import {parse as parseSearchParams} from '../../hooks/use-search-params'
@@ -73,6 +79,8 @@ import {
 import useNavigation from '../../hooks/use-navigation'
 import LoadingSpinner from '../../components/loading-spinner'
 
+import object from 'lodash/object'
+
 // NOTE: You can ignore certain refinements on a template level by updating the below
 // list of ignored refinements.
 const REFINEMENT_DISALLOW_LIST = ['c_isNew']
@@ -93,6 +101,7 @@ const ProductList = (props) => {
         ...rest
     } = props
     const {total, sortingOptions} = productSearchResult || {}
+    // console.log('ProductList => productSearchResult =>', productSearchResult)
 
     const {isOpen, onOpen, onClose} = useDisclosure()
     const [sortOpen, setSortOpen] = useState(false)
@@ -608,7 +617,7 @@ ProductList.getProps = async ({res, params, location, api}) => {
         res.set('Cache-Control', `max-age=${MAX_CACHE_AGE}`)
     }
 
-    const [category, productSearchResult] = await Promise.all([
+    const [category, productSearchOutput] = await Promise.all([
         isSearch
             ? Promise.resolve()
             : api.shopperProducts.getCategory({
@@ -620,8 +629,13 @@ ProductList.getProps = async ({res, params, location, api}) => {
     ])
 
     // Apply disallow list to refinements.
-    productSearchResult.refinements = productSearchResult?.refinements?.filter(
+    productSearchOutput.refinements = productSearchOutput?.refinements?.filter(
         ({attributeId}) => !REFINEMENT_DISALLOW_LIST.includes(attributeId)
+    )
+
+    const productSearchResult = object.merge(
+        productSearchOutput,
+        useProductSearchResults(api, productSearchOutput)
     )
 
     // The `isomorphic-sdk` returns error objects when they occur, so we

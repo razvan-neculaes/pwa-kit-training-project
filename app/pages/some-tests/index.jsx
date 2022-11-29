@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 const SomeTests = () => {
     const [count, setCount] = useState(0)
@@ -26,8 +26,18 @@ const SomeTests = () => {
 
     const showRandomObject = (object) => JSON.stringify(object)
 
+    const [inputValue, setInputValue] = useState('')
+    const cnt = useRef(0)
+
+    useEffect(() => {
+        cnt.current = cnt.current + 1
+    }, [inputValue])
+
     return (
         <div className="t-product-simple" itemScope itemType="http://schema.org/">
+            <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <h1>Render Count: {cnt.current}</h1>
+
             <div>
                 <p>Generate random objects...</p>
                 <p>{showRandomObject(randomObject)}</p>
