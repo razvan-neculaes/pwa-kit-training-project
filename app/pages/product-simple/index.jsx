@@ -72,7 +72,6 @@ ProductDetails.getProps = async ({params, api}) => {
     const product = await api.shopperProducts.getProduct({
         parameters: {id: params.productId, allImages: true}
     })
-    // console.log('product.productPromotions=>', product.productPromotions)
 
     /* Get the promotions for the product 
      * const promotionIds = pluckIds(product.productPromotions, 'promotionId')

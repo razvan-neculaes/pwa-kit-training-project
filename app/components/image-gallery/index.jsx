@@ -66,7 +66,6 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size,
     const [selectedIndex, setSelectedIndex] = useState(0)
     const styles = useMultiStyleConfig('ImageGallery', {size})
     const location = useLocation()
-    console.log('ImageGallery => isSale =>', isSale)
 
     // Get the 'hero' image for the current variation.
     const heroImageGroup = useMemo(

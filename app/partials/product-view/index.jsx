@@ -198,8 +198,6 @@ const ProductView = ({
         }
     }, [variant?.productId])
 
-    // console.log('ProductView => product =>', product)
-
     return (
         <Flex direction={'column'} data-testid="product-view">
             {/* Basic information etc. title, price, breadcrumb*/}
