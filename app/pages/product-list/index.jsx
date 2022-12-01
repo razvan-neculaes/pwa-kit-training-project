@@ -399,9 +399,9 @@ const ProductList = (props) => {
                                               <ProductTileSkeleton key={index} />
                                           ))
                                     : productSearchResult.hits.map((productSearchItem) => {
-                                          console.log('productSearchItem => representedProduct',
+                                          /*console.log('productSearchItem => representedProduct',
                                               productSearchItem.representedProduct
-                                          )
+                                          )*/
                                           const productId = productSearchItem.productId
                                           const isInWishlist = !!wishlist.findItemByProductId(
                                               productId
@@ -635,8 +635,10 @@ ProductList.getProps = async ({res, params, location, api}) => {
         ({attributeId}) => !REFINEMENT_DISALLOW_LIST.includes(attributeId)
     )
 
-    const customSearchResult = useProductSearchResults(api, productSearchOutput)
-    const productSearchResult = object.merge(productSearchOutput, customSearchResult)
+    const customSearchResult = await useProductSearchResults(api, productSearchOutput)
+    const {hits: customHits} = customSearchResult
+    const {hits, ...rest} = productSearchOutput
+    const productSearchResult = {hits: customHits, ...rest}
 
     // The `isomorphic-sdk` returns error objects when they occur, so we
     // need to check the category type and throw if required.

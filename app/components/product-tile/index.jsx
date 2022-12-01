@@ -78,7 +78,6 @@ const ProductTile = (props) => {
     const [isFavouriteLoading, setFavouriteLoading] = useState(false)
     const styles = useMultiStyleConfig('ProductTile')
     const isSale = !!representedProduct?.c_isSale
-    // console.log('ProductTile => representedProduct =>', representedProduct)
 
     return (
         <Link
