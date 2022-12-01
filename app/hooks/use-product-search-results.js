@@ -19,6 +19,9 @@ export const useProductSearchResults = async (api, productSearchResult) => {
         let c_isSale = !!representedProduct?.c_isSale
         let representedProductData = {c_isSale, ...productSearchItem.representedProduct}
         object.set(productSearchItem, 'representedProduct', representedProductData)
+        /*console.log('useProductSearchResults => representedProduct => data',
+            productSearchItem.representedProduct
+        )*/
 
         return productSearchItem
     })
