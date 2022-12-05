@@ -51,7 +51,13 @@ import PageHeader from './partials/page-header'
 import {FilterIcon, ChevronDownIcon} from '../../components/icons'
 
 // Hooks
-import {useLimitUrls, usePageUrls, useSortUrls, useSearchParams} from '../../hooks'
+import {
+    useLimitUrls,
+    usePageUrls,
+    useSortUrls,
+    useSearchParams,
+    useProductSearchResults
+} from '../../hooks'
 import {useToast} from '../../hooks/use-toast'
 import useWishlist from '../../hooks/use-wishlist'
 import {parse as parseSearchParams} from '../../hooks/use-search-params'
@@ -72,6 +78,8 @@ import {
 } from '../../constants'
 import useNavigation from '../../hooks/use-navigation'
 import LoadingSpinner from '../../components/loading-spinner'
+
+import object from 'lodash/object'
 
 // NOTE: You can ignore certain refinements on a template level by updating the below
 // list of ignored refinements.
@@ -391,6 +399,9 @@ const ProductList = (props) => {
                                               <ProductTileSkeleton key={index} />
                                           ))
                                     : productSearchResult.hits.map((productSearchItem) => {
+                                          /*console.log('productSearchItem => representedProduct',
+                                              productSearchItem.representedProduct
+                                          )*/
                                           const productId = productSearchItem.productId
                                           const isInWishlist = !!wishlist.findItemByProductId(
                                               productId
@@ -608,7 +619,7 @@ ProductList.getProps = async ({res, params, location, api}) => {
         res.set('Cache-Control', `max-age=${MAX_CACHE_AGE}`)
     }
 
-    const [category, productSearchResult] = await Promise.all([
+    const [category, productSearchOutput] = await Promise.all([
         isSearch
             ? Promise.resolve()
             : api.shopperProducts.getCategory({
@@ -620,9 +631,14 @@ ProductList.getProps = async ({res, params, location, api}) => {
     ])
 
     // Apply disallow list to refinements.
-    productSearchResult.refinements = productSearchResult?.refinements?.filter(
+    productSearchOutput.refinements = productSearchOutput?.refinements?.filter(
         ({attributeId}) => !REFINEMENT_DISALLOW_LIST.includes(attributeId)
     )
+
+    const customSearchResult = await useProductSearchResults(api, productSearchOutput)
+    const {hits: customHits} = customSearchResult
+    const {hits, ...rest} = productSearchOutput
+    const productSearchResult = {hits: customHits, ...rest}
 
     // The `isomorphic-sdk` returns error objects when they occur, so we
     // need to check the category type and throw if required.

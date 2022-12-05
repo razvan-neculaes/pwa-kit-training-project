@@ -15,7 +15,6 @@ import {
     Box,
     Img,
     Flex,
-
     // Hooks
     Skeleton as ChakraSkeleton,
     ListItem,
@@ -63,7 +62,7 @@ Skeleton.propTypes = {
  * The image gallery displays a hero image and thumbnails below it. You can control which
  * image groups that are use by passing in the current selected variation values.
  */
-const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size}) => {
+const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size, isSale}) => {
     const [selectedIndex, setSelectedIndex] = useState(0)
     const styles = useMultiStyleConfig('ImageGallery', {size})
     const location = useLocation()
@@ -111,6 +110,7 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size}
                                 base: '100vw',
                                 lg: heroImageMaxWidth
                             }}
+                            isSale={isSale}
                             imageProps={{
                                 alt: heroImage.alt
                             }}
@@ -153,6 +153,7 @@ ImageGallery.propTypes = {
      * The images array to be rendered
      */
     imageGroups: PropTypes.array,
+    isSale: PropTypes.bool,
     /**
      * The current selected variation values
      */

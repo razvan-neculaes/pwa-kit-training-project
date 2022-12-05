@@ -217,6 +217,7 @@ const ProductView = ({
                                 size={imageSize}
                                 imageGroups={product.imageGroups}
                                 selectedVariationAttributes={variationParams}
+                                isSale={product?.c_isSale}
                             />
                             <HideOnMobile>
                                 {showFullLink && product && (

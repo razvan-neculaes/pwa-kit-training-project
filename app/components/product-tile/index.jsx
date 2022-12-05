@@ -65,7 +65,9 @@ const ProductTile = (props) => {
         dynamicImageProps,
         ...rest
     } = props
-    const {currency, image, price, productId} = product
+
+    const {currency, image, price, productId, representedProduct} = product
+
     // ProductTile is used by two components, RecommendedProducts and ProductList.
     // RecommendedProducts provides a localized product name as `name` and non-localized product
     // name as `productName`. ProductList provides a localized name as `productName` and does not
@@ -75,10 +77,13 @@ const ProductTile = (props) => {
     const {currency: activeCurrency} = useCurrency()
     const [isFavouriteLoading, setFavouriteLoading] = useState(false)
     const styles = useMultiStyleConfig('ProductTile')
+    const isSale = !!representedProduct?.c_isSale
 
     return (
         <Link
             data-testid="product-tile"
+            data-sale={isSale}
+            data-representedid={representedProduct?.id}
             {...styles.container}
             to={productUrlBuilder({id: productId}, intl.local)}
             {...rest}
@@ -88,6 +93,7 @@ const ProductTile = (props) => {
                     <DynamicImage
                         src={`${image.disBaseLink || image.link}[?sw={width}&q=60]`}
                         widths={dynamicImageProps?.widths}
+                        isSale={isSale}
                         imageProps={{
                             alt: image.alt,
                             ...dynamicImageProps?.imageProps
@@ -145,6 +151,7 @@ ProductTile.propTypes = {
      */
     product: PropTypes.shape({
         currency: PropTypes.string,
+        representedProduct: PropTypes.object,
         image: PropTypes.shape({
             alt: PropTypes.string,
             disBaseLink: PropTypes.string,

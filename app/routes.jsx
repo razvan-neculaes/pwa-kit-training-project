@@ -33,8 +33,12 @@ const Checkout = loadable(() => import('./pages/checkout'), {fallback})
 const CheckoutConfirmation = loadable(() => import('./pages/checkout/confirmation'), {fallback})
 const LoginRedirect = loadable(() => import('./pages/login-redirect'), {fallback})
 const ProductDetail = loadable(() => import('./pages/product-detail'), {fallback})
+const ProductSimple = loadable(() => import('./pages/product-simple'), {fallback})
 const ProductList = loadable(() => import('./pages/product-list'), {fallback})
 const Wishlist = loadable(() => import('./pages/account/wishlist'), {fallback})
+const ContentSearch = loadable(() => import('./pages/content-search'), {fallback})
+const ContentDetails = loadable(() => import('./pages/content-details'), {fallback})
+const SomeTests = loadable(() => import('./pages/some-tests'), {fallback})
 const PageNotFound = loadable(() => import('./pages/page-not-found'))
 
 const routes = [
@@ -87,6 +91,10 @@ const routes = [
         component: ProductDetail
     },
     {
+        path: '/simple/:productId',
+        component: ProductSimple
+    },
+    {
         path: '/search',
         component: ProductList
     },
@@ -97,6 +105,18 @@ const routes = [
     {
         path: '/account/wishlist',
         component: Wishlist
+    },
+    {
+        path: '/content-search',
+        component: ContentSearch
+    },
+    {
+        path: '/content/:id',
+        component: ContentDetails
+    },
+    {
+        path: '/test',
+        component: SomeTests
     },
     {
         path: '*',

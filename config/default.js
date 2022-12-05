@@ -22,7 +22,9 @@ module.exports = {
         commerceAPI: {
             proxyPath: `/mobify/proxy/api`,
             parameters: {
-                clientId: 'dbf80992-edbd-4f7c-b5f3-3f4ddc140b92', // 1d763261-6522-4913-9d52-5d947d3b94c4
+                // 2afe3131-876b-4933-89e0-6ae39d3323fc, dbf80992-edbd-4f7c-b5f3-3f4ddc140b92,
+                // ade13fe3-c42d-4d32-a1bc-0efbac5f1fbd, 390ca69e-d685-45c2-a3d9-6779b04965cd
+                clientId: 'dbf80992-edbd-4f7c-b5f3-3f4ddc140b92',
                 organizationId: 'f_ecom_zzrb_073', // f_ecom_zzte_053
                 shortCode: 'kv7kzm78', // kv7kzm78
                 siteId: 'RefArch'
@@ -58,12 +60,19 @@ module.exports = {
         ssrFunctionNodeVersion: '14.x',
         proxyConfigs: [
             {
+                protocol: 'https',
                 host: 'kv7kzm78.api.commercecloud.salesforce.com',
                 path: 'api'
             },
             {
+                protocol: 'https',
                 host: 'zzrb-073.dx.commercecloud.salesforce.com',
                 path: 'ocapi'
+            },
+            {
+                protocol: 'https',
+                host: 'prd.us.shopper.commercecloud.salesforce.com',
+                path: 'slas'
             },
             {
                 host: 'api.cquotient.com',
